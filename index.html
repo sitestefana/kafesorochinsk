@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кафе Уран · Сорочинск | Русская кухня · Банкеты</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0d10;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* 3D фон с градиентами и свечением */
+        .bg-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, #1e2b3a 0%, #0b0d10 70%);
+        }
+
+        .bg-3d::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 70% 80%, rgba(180, 120, 60, 0.25) 0%, transparent 40%),
+                        radial-gradient(circle at 30% 20%, rgba(80, 130, 200, 0.2) 0%, transparent 45%);
+            animation: floatGlow 20s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Навигация */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 12, 18, 0.5);
+            border-radius: 60px;
+            margin-top: 20px;
+            padding: 12px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff, #d4a373);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(212, 163, 115, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4a373;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .phone-btn {
+            background: rgba(212, 163, 115, 0.15);
+            border: 1px solid rgba(212, 163, 115, 0.5);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #d4a373;
+            text-decoration: none;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .phone-btn:hover {
+            background: #d4a373;
+            color: #0b0d10;
+            box-shadow: 0 0 30px rgba(212, 163, 115, 0.5);
+        }
+
+        /* 3D-карточки */
+        .card-3d {
+            background: rgba(20, 25, 35, 0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8),
+                        0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover {
+            box-shadow: 0 40px 70px -20px #000, 0 0 40px rgba(212, 163, 115, 0.15);
+            transform: translateY(-6px) rotateX(2deg) rotateY(1deg);
+        }
+
+        /* Герой-секция */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 80px 0 100px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #d4a373, #a57c54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content .sub {
+            font-size: 1.2rem;
+            color: #b0b8c4;
+            margin: 24px 0 32px;
+            max-width: 90%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 163, 115, 0.12);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #d4a373;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #d4a373;
+            color: #0b0d10;
+            padding: 16px 36px;
+            border-radius: 60px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(212, 163, 115, 0.3);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #e6b88a;
+            box-shadow: 0 0 40px rgba(212, 163, 115, 0.6);
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            border-color: #d4a373;
+            background: rgba(212, 163, 115, 0.1);
+        }
+
+        /* 3D-изображение героя */
+        .hero-image {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 40px;
+            box-shadow: 30px 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transform: rotateY(-6deg) rotateX(4deg) scale(1.02);
+            transition: transform 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .hero-image img:hover {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.04);
+        }
+
+        /* Секции */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 48px;
+            background: linear-gradient(to right, #fff, #b0b8c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #b0b8c4;
+            font-size: 0.95rem;
+        }
+
+        /* Галерея (заполнители) */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 100px;
+        }
+
+        .gallery-item {
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 40px -10px #000;
+            transition: 0.3s;
+            aspect-ratio: 16 / 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(0.9) saturate(1.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1) saturate(1.3);
+        }
+
+        /* Контакты + бронь */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .contact-card {
+            padding: 48px;
+        }
+
+        .contact-card h2 {
+            font-size: 2rem;
+            margin-bottom: 32px;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 1.1rem;
+        }
+
+        .contact-line span:first-child {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 15px #d4a373);
+        }
+
+        .contact-line a {
+            color: #d4a373;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .booking-card {
+            padding: 48px;
+            background: linear-gradient(145deg, rgba(30, 35, 45, 0.7), rgba(15, 18, 25, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(212, 163, 115, 0.2);
+        }
+
+        .booking-card h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .booking-card p {
+            color: #b0b8c4;
+            margin-bottom: 32px;
+            max-width: 80%;
+        }
+
+        .big-phone {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #d4a373;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-shadow: 0 0 30px rgba(212, 163, 115, 0.5);
+            transition: 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .big-phone:hover { color: #f0c8a0; text-shadow: 0 0 50px #d4a373; }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #6a7280;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптив */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; margin: 40px 0 60px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+            .contact-section { grid-template-columns: 1fr; }
+            nav { flex-wrap: wrap; gap: 16px; justify-content: center; }
+            .nav-links { gap: 20px; font-size: 0.85rem; }
+            .section-title { font-size: 2.2rem; }
+            .contact-card, .booking-card { padding: 32px; }
+            .big-phone { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-3d"></div>
+
+    <div class="container">
+        <!-- Навигация -->
+        <nav>
+            <div class="logo">УРАН</div>
+            <div class="nav-links">
+                <a href="#home">Главная</a>
+                <a href="#features">О нас</a>
+                <a href="#gallery">Атмосфера</a>
+                <a href="#contact">Контакты</a>
+            </div>
+            <a href="tel:+73534641638" class="phone-btn">+7 (35346) 4-16-38</a>
+        </nav>
+
+        <!-- Герой -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">Сорочинск · ул. Войкова, 17</div>
+                <h1>Вкусная<br>русская кухня<br>в большом зале</h1>
+                <p class="sub">Уютное кафе «Уран» — идеальное место для семейного обеда, встречи с друзьями и бронирования праздников. Традиционные блюда, приготовленные с душой.</p>
+                <div class="cta-group">
+                    <a href="tel:+73534641638" class="btn-primary">Забронировать стол</a>
+                    <a href="#contact" class="btn-outline">Как добраться</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА РЕАЛЬНОЕ ФОТО КАФЕ (ИНТЕРЬЕР/БЛЮДО) -->
+                <img src="https://picsum.photos/id/292/800/600" alt="Русская кухня в кафе Уран" loading="eager">
+            </div>
+        </section>
+
+        <!-- Особенности -->
+        <section id="features">
+            <h2 class="section-title">Почему выбирают «Уран»</h2>
+            <div class="features-grid">
+                <div class="card-3d feature-card">
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Большой зал</h3>
+                    <p>Просторное помещение для торжеств, корпоративов и свадеб. Вместительный зал позволяет комфортно разместить гостей.</p>
+                </div>
+                <div class="card-3d feature-card">
+                    <div class="feature-icon">🍲</div>
+                    <h3>Русская кухня</h3>
+                    <p>Настоящие борщи, пельмени, блины и другие любимые блюда. Готовим из свежих продуктов по традиционным рецептам.</p>
+                </div>
+                <div class="card-3d feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3>Бронь на праздники</h3>
+                    <p>Забронируйте зал для юбилея, дня рождения или другого события. Индивидуальный подход к каждому мероприятию.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Галерея (заполнители) -->
+        <section id="gallery">
+            <h2 class="section-title">Атмосфера и блюда</h2>
+            <div class="gallery">
+                <!-- ЗАМЕНИТЕ ССЫЛКИ НА РЕАЛЬНЫЕ ФОТО КАФЕ -->
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/id/431/800/500" alt="Интерьер кафе Уран" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/id/493/800/500" alt="Русские блюда" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/id/106/800/500" alt="Праздничный стол" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/id/24/800/500" alt="Десерты и выпечка" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты + Бронь -->
+        <section id="contact" class="contact-section">
+            <div class="card-3d contact-card">
+                <h2>Контакты</h2>
+                <div class="contact-line">
+                    <span>📍</span>
+                    <div>Сорочинск, ул. Войкова, 17</div>
+                </div>
+                <div class="contact-line">
+                    <span>📞</span>
+                    <div><a href="tel:+73534641638">+7 (35346) 4-16-38</a></div>
+                </div>
+                <div class="contact-line">
+                    <span>🕒</span>
+                    <div>Ежедневно с 08:00 до 18:00</div>
+                </div>
+                <div class="contact-line" style="border-bottom: none;">
+                    <span>🍽️</span>
+                    <div>Русская кухня · Большой зал · Wi-Fi</div>
+                </div>
+            </div>
+
+            <div class="card-3d booking-card">
+                <h2>Забронировать праздник</h2>
+                <p>Позвоните нам, чтобы обсудить меню, украшение зала и удобное время. Мы поможем организовать ваш праздник!</p>
+                <a href="tel:+73534641638" class="big-phone">4-16-38</a>
+                <p style="font-size: 0.9rem; margin-top: 16px;">Звонки принимаются ежедневно с 08:00 до 18:00</p>
+            </div>
+        </section>
+
+        <footer>
+            Кафе «Уран» · Сорочинск, ул. Войкова, 17 · +7 (35346) 4-16-38<br>
+            <span style="opacity: 0.5; font-size: 0.8rem;">© 2026 · Русская кухня · Банкеты и праздники</span>
+        </footer>
+    </div>
+</body>
+  </html>
